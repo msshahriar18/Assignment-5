@@ -1,5 +1,6 @@
 import { use } from "react";
 import type { ITechnology } from "../types/technology";
+import TechnologyCard from "./TechnologyCard";
 
 interface ITechnologiesProps {
     technologiesPromise: Promise<ITechnology[]>;
@@ -20,7 +21,11 @@ const Technologies = ({ technologiesPromise }: ITechnologiesProps) => {
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* TechnologyCard map porer step e ashbe */}
+
+
+                {technologies.map((technology) => (
+                    <TechnologyCard key={technology.id} technology={technology} />
+                ))}
             </div>
         </section>
     );
