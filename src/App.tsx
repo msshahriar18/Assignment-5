@@ -1,3 +1,4 @@
+import Hero from "./components/hero"
 import Nav from "./components/nav"
 
 
@@ -7,7 +8,9 @@ function App() {
     <>
 
 
+
       <Nav></Nav>
+      <Hero></Hero>
     </>
   )
 }
