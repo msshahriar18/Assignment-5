@@ -1,16 +1,29 @@
-import { useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import type { ITechnology } from "../types/technology";
 import { FaStar } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 interface ITechnologyCardProps {
   technology: ITechnology;
+  selectedTechnologies: ITechnology[];
+  setSelectedTechnologies: Dispatch<SetStateAction<ITechnology[]>>;
 }
 
-const TechnologyCard = ({ technology }: ITechnologyCardProps) => {
-  const [isAdded, setIsAdded] = useState(false);
+const TechnologyCard = ({
+  technology,
+  selectedTechnologies,
+  setSelectedTechnologies,
+}: ITechnologyCardProps) => {
+  const isAdded = selectedTechnologies.some((t) => t.id === technology.id);
 
   const handleAddToStack = () => {
-    setIsAdded(true);
+    if (isAdded) {
+      toast.warning(`${technology.name} is already in your stack`);
+      return;
+    }
+
+    setSelectedTechnologies([...selectedTechnologies, technology]);
+    toast.success(`${technology.name} added to your stack`);
   };
 
   return (

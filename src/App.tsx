@@ -12,13 +12,18 @@ const technologiesFetch = async (): Promise<ITechnology[]> => {
 
 function App() {
   const [technologiesPromise] = useState(() => technologiesFetch());
+  const [selectedTechnologies, setSelectedTechnologies] = useState<ITechnology[]>([]);
 
   return (
     <>
       <Nav></Nav>
       <Hero></Hero>
       <Suspense fallback={<h2>Loading.......</h2>}>
-        <Technologies technologiesPromise={technologiesPromise} />
+        <Technologies
+          technologiesPromise={technologiesPromise}
+          selectedTechnologies={selectedTechnologies}
+          setSelectedTechnologies={setSelectedTechnologies}
+        />
       </Suspense>
     </>
   )

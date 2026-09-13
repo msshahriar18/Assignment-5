@@ -1,12 +1,20 @@
 import { use } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import type { ITechnology } from "../types/technology";
 import TechnologyCard from "./TechnologyCard";
+import YourStack from "./YourStack";
 
 interface ITechnologiesProps {
     technologiesPromise: Promise<ITechnology[]>;
+    selectedTechnologies: ITechnology[];
+    setSelectedTechnologies: Dispatch<SetStateAction<ITechnology[]>>;
 }
 
-const Technologies = ({ technologiesPromise }: ITechnologiesProps) => {
+const Technologies = ({
+    technologiesPromise,
+    selectedTechnologies,
+    setSelectedTechnologies,
+}: ITechnologiesProps) => {
     const technologies = use(technologiesPromise);
 
     console.log(technologies);
@@ -20,12 +28,22 @@ const Technologies = ({ technologiesPromise }: ITechnologiesProps) => {
                 Pick one technology per category to build your ideal stack.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="flex flex-col lg:flex-row gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 flex-1">
+                    {technologies.map((technology) => (
+                        <TechnologyCard
+                            key={technology.id}
+                            technology={technology}
+                            selectedTechnologies={selectedTechnologies}
+                            setSelectedTechnologies={setSelectedTechnologies}
+                        />
+                    ))}
+                </div>
 
-
-                {technologies.map((technology) => (
-                    <TechnologyCard key={technology.id} technology={technology} />
-                ))}
+                <YourStack
+                    selectedTechnologies={selectedTechnologies}
+                    setSelectedTechnologies={setSelectedTechnologies}
+                />
             </div>
         </section>
     );
