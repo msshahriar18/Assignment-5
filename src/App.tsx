@@ -2,6 +2,7 @@ import { Suspense, useState } from "react";
 import Nav from "./components/nav";
 import Hero from "./components/hero";
 import Technologies from "./components/Technologies";
+import Footer from "./components/Footer";
 import type { ITechnology } from "./types/technology";
 
 const technologiesFetch = async (): Promise<ITechnology[]> => {
@@ -25,6 +26,7 @@ function App() {
           setSelectedTechnologies={setSelectedTechnologies}
         />
       </Suspense>
+      <Footer />
     </>
   )
 }
